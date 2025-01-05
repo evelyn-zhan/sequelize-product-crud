@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/1.0.2/css/bulma.min.css">
+
+        <title>Rest API - MVC</title>
+    </head>
+
+    <body>
+        <div id="app" class="px-6 py-4 has-background-white" style="height: 100vh;">
+            <h1 class="title has-text-black">Product List</h1>
+
+            <div>
+                <a href="/create" class="button is-success has-text-white">Add New</a>
+
+                <table class="table is-striped is-bordered mt-3 is-fullwidth" style="margin: 10px auto;">
+                    <thead class="has-background-white">
+                        <tr>
+                            <th class="has-text-black">Product Name</th>
+                            <th class="has-text-black">Product Price</th>
+                            <th class="has-text-black has-text-centered">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% products.forEach((product) => { %>
+                            <tr class="has-background-white">
+                                <td class="has-text-black"><%= product.name %></td>
+                                <td class="has-text-black"><%= product.price %></td>
+                                <td class="has-text-centered">
+                                    <a href="/edit/<%= product.id %>" class="button is-warning is-small">Edit</a>
+                                    <button onclick=<%= 'del(' + product.id + ')' %> class="button is-danger is-small" style="margin-left: 5px;">Delete</button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script>
+            const del = (id) => {
+                axios.delete(`/api/product/${id}`)
+                    .then((result) => {
+                        alert(`Status: ${result.status}`)
+                        location.reload()
+                    })
+                    .catch((error) => {
+                        alert(`Error: ${error}`)
+                    })
+            }
+        </script>
+    </body>
+</html>
