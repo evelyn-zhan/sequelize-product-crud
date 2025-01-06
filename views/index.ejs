@@ -47,7 +47,7 @@
             const del = (id) => {
                 axios.delete(`/api/product/${id}`)
                     .then((result) => {
-                        alert(`Status: ${result.status}`)
+                        alert(`Status: ${result.status}\nProduct deleted!`)
                         location.reload()
                     })
                     .catch((error) => {
