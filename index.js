@@ -14,8 +14,8 @@ app.get('/', (req, res) => {
         .then((products) => {
             res.render('index', { products })
         })
-        .catch((err) => {
-            console.log(err)
+        .catch((error) => {
+            console.log(error)
             res.status(500).send('Internal Server Error')
         })
 })
