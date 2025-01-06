@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/1.0.2/css/bulma.min.css">
+
+        <title>Rest API - MVC</title>
+
+        <style>
+            input[type="text"]::placeholder {
+                color: black;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app" class="px-6 py-4 has-background-white" style="height: 100vh;">
+            <h1 class="title has-text-black">Edit Product</h1>
+
+            <div class="field">
+                <label class="label has-text-black">Product Name</label>
+                <div class="control">
+                    <input type="text" class="input has-background-white has-text-black" placeholder="Product Name" autocomplete="off" name="name" id="name" value="<%= product.name %>">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label has-text-black">Product Price</label>
+                <div class="control">
+                    <input type="text" class="input has-background-white has-text-black" placeholder="Product Price" autocomplete="off" name="price" id="price" value="<%= product.price %>">
+                </div>
+            </div>
+
+            <div class="control">
+                <button class="button is-warning has-text-white" id="save" onclick=<%= 'edit(' + product.id + ')' %>>Update</button>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script>
+            const edit = (id) => {
+                axios({
+                    method: 'PUT',
+                    url: `/api/product/${id}`,
+                    data: {
+                        name: document.getElementById('name').value,
+                        price: document.getElementById('price').value
+                    }
+                })
+                    .then((result) => {
+                        alert(`Status: ${result.status}\nProduct updated successfully!`)
+                        window.location = '/'
+                    })
+                    .catch((error) => {
+                        alert(`Error: ${error}`)
+                    })
+            }
+        </script>
+    </body>
+</html>
